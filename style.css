@@ -1,14 +1,14 @@
 /* =========================================================
    Una Melhor — style.css
-   Identidade visual: cores da bandeira de São Bento do Una
+   As cores vêm da bandeira de São Bento do Una
    ========================================================= */
 
-/* ---------- 1. VARIÁVEIS (mude as cores aqui!) ---------- */
+/* ---------- Variáveis (pra trocar uma cor é só mexer aqui) ---------- */
 :root {
-  --cor-principal: #1B2FA8;   /* azul real da bandeira */
+  --cor-principal: #1B2FA8;   /* azul da bandeira */
   --cor-principal-escura: #0E1B6B;
   --cor-verde: #2E9E55;       /* verde da bandeira */
-  --cor-vermelho: #D8322B;    /* vermelho da bandeira: ações em destaque */
+  --cor-vermelho: #D8322B;    /* vermelho da bandeira, uso nos botões de destaque */
   --cor-fundo: #F6F8FB;
   --cor-texto: #1F2A37;
   --cor-texto-suave: #5B6776;
@@ -17,7 +17,7 @@
   --sombra: 0 6px 20px rgba(27, 47, 168, 0.10);
 }
 
-/* ---------- 2. BASE ---------- */
+/* ---------- Base ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -31,18 +31,18 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* Contêiner: centraliza o conteúdo e limita a largura */
+/* Centraliza o conteúdo e não deixa ficar largo demais */
 .container { width: min(1120px, 92%); margin: 0 auto; }
 
 h1, h2, h3 { line-height: 1.2; color: var(--cor-principal-escura); }
 
-/* Foco visível para quem navega pelo teclado */
+/* Pra quem navega com o teclado conseguir ver onde está */
 a:focus-visible, button:focus-visible {
   outline: 3px solid var(--cor-vermelho);
   outline-offset: 2px;
 }
 
-/* ---------- 3. BOTÕES ---------- */
+/* ---------- Botões ---------- */
 .botao {
   display: inline-block;
   padding: 12px 22px;
@@ -60,19 +60,19 @@ a:focus-visible, button:focus-visible {
 .botao-contorno { border-color: #fff; color: #fff; }
 .botao-contorno:hover { background: rgba(255,255,255,.15); }
 
-/* ---------- 4. HEADER ---------- */
+/* ---------- Cabeçalho ---------- */
 .header {
   position: sticky; top: 0; z-index: 10;
   background: #fff;
   border-bottom: 1px solid var(--cor-borda);
-  border-top: 5px solid var(--cor-principal);   /* faixa azul da bandeira */
+  border-top: 5px solid var(--cor-principal);   /* faixa azul, lembra a bandeira */
 }
 .header-conteudo {
   display: flex; align-items: center; justify-content: space-between;
   min-height: 68px;
 }
 .logo { font-size: 1.4rem; font-weight: 800; color: var(--cor-principal); }
-.logo span { color: var(--cor-verde); }   /* "City" em verde */
+.logo span { color: var(--cor-verde); }   /* "Melhor" fica verde */
 
 .menu { display: flex; align-items: center; gap: 24px; }
 .menu a:not(.botao) { font-weight: 500; color: var(--cor-texto-suave); }
@@ -81,14 +81,14 @@ a:focus-visible, button:focus-visible {
 
 .menu-botao { display: none; background: none; border: 0; font-size: 1.8rem; cursor: pointer; color: var(--cor-principal); }
 
-/* ---------- 5. TELAS (só a "ativa" aparece) ---------- */
+/* ---------- Telas (só a que tem a classe "ativa" aparece) ---------- */
 .tela { display: none; }
 .tela.ativa { display: block; }
 .em-breve { color: var(--cor-texto-suave); margin-top: 8px; }
 #registrar .container, #problemas .container,
 #detalhes .container, #dashboard .container { padding: 48px 0; }
 
-/* ---------- 6. HERO ---------- */
+/* ---------- Hero (a parte azul de cima) ---------- */
 .hero {
   background: linear-gradient(135deg, var(--cor-principal-escura), var(--cor-principal) 70%);
   color: #fff;
@@ -102,11 +102,11 @@ a:focus-visible, button:focus-visible {
 .hero-subtitulo { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
 .hero-botoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 
-/* Animação de entrada: só uma, no texto principal */
+/* Animação de entrada do texto principal */
 .hero-texto { animation: entrar .7s ease both; }
 @keyframes entrar { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 
-/* ---------- 7. MAPA SIMULADO (só CSS) ---------- */
+/* ---------- Mapa de enfeite (feito só com CSS) ---------- */
 .mapa {
   position: relative; height: 340px; overflow: hidden;
   background: #E8F0E6; border-radius: 20px;
@@ -131,10 +131,10 @@ a:focus-visible, button:focus-visible {
 .pino-verde    { background: var(--cor-verde); }
 .pino-azul     { background: #3B82F6; }
 
-/* ---------- 8. ESTATÍSTICAS ---------- */
+/* ---------- Cards de números ---------- */
 .stats {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
-  margin-top: -48px;   /* sobe e sobrepõe o hero */
+  margin-top: -48px;   /* puxa pra cima pra ficar por cima do hero */
   position: relative;
 }
 .stat {
@@ -144,7 +144,7 @@ a:focus-visible, button:focus-visible {
 .stat strong { display: block; font-size: 2.4rem; color: var(--cor-principal); }
 .stat span { color: var(--cor-texto-suave); font-size: .95rem; }
 
-/* ---------- 9. COMO FUNCIONA ---------- */
+/* ---------- Como funciona ---------- */
 .como-funciona { padding: 72px 0; }
 .como-funciona h2 { font-size: 1.9rem; margin-bottom: 28px; }
 .passos { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -160,11 +160,11 @@ a:focus-visible, button:focus-visible {
 .passos h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .passos p { color: var(--cor-texto-suave); font-size: .95rem; }
 
-/* ---------- 10. RODAPÉ ---------- */
+/* ---------- Rodapé ---------- */
 .rodape { background: var(--cor-principal-escura); color: #C9D6E4; padding: 28px 0; font-size: .9rem; }
 .rodape strong { color: #fff; }
 
-/* ---------- 11. RESPONSIVIDADE ---------- */
+/* ---------- Responsivo ---------- */
 /* Tablet */
 @media (max-width: 900px) {
   .hero-grade { grid-template-columns: 1fr; }
@@ -186,13 +186,13 @@ a:focus-visible, button:focus-visible {
   .stats, .passos { grid-template-columns: 1fr; }
 }
 
-/* Respeita quem prefere menos movimento */
+/* Quem desativou animações no celular/PC não vê nenhuma */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
 
 /* =========================================================
-   FASES 2 a 6: formulário, lista, detalhes, dashboard
+   Formulário, lista, detalhes e panorama
    ========================================================= */
 .estreito { max-width: 720px; }
 .subtitulo { margin: 36px 0 14px; }
@@ -207,7 +207,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .sucesso { margin-top: 18px; padding: 16px; border-radius: var(--raio); background: #DDF5EA; color: #11694A; font-weight: 600; animation: entrar .4s ease both; }
 .sucesso a { text-decoration: underline; }
 
-/* Filtros e cards */
+/* Filtros e cards da lista */
 .filtros { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin: 20px 0 28px; }
 .grade-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
 .card { background: #fff; border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 20px; display: flex; flex-direction: column; gap: 8px; transition: transform .2s, box-shadow .2s; }
@@ -217,14 +217,14 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .card .botao { margin-top: auto; text-align: center; background: var(--cor-principal); color: #fff; padding: 9px; }
 .vazio { grid-column: 1 / -1; text-align: center; padding: 40px 0; }
 
-/* Etiqueta de status */
+/* Etiqueta colorida do status */
 .etiqueta { align-self: flex-start; padding: 3px 12px; border-radius: 999px; font-size: .85rem; font-weight: 600; }
 .st-pendente { background: #FEE2E2; color: #991B1B; }
 .st-analise { background: #FEF3C7; color: #92400E; }
 .st-andamento { background: #DBEAFE; color: #1E40AF; }
 .st-resolvido { background: #DCFCE7; color: #166534; }
 
-/* Detalhes */
+/* Tela de detalhes */
 .voltar { background: none; border: 0; color: var(--cor-principal); font-weight: 600; cursor: pointer; margin-bottom: 14px; }
 .detalhe-caixa { background: #fff; border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 28px; display: grid; gap: 14px; }
 .detalhe-caixa img { max-width: 100%; border-radius: 12px; }
@@ -234,7 +234,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .demo { background: #EEF1FF; border-radius: 12px; padding: 14px; }
 .demo select { margin-top: 8px; }
 
-/* Dashboard: barras */
+/* Panorama: barras por categoria */
 .barra-linha { display: grid; grid-template-columns: 200px 1fr 60px; gap: 12px; align-items: center; margin-bottom: 10px; }
 .barra-fundo { background: #E1E7EF; border-radius: 999px; height: 14px; overflow: hidden; }
 .barra { height: 100%; background: var(--cor-verde); border-radius: 999px; transition: width .6s ease; }
@@ -246,16 +246,17 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
   .etapa { font-size: .65rem; }
 }
 
-/* Identidade Una Melhor */
+/* Detalhes da identidade (logo e bandeira) */
 .logo .estrela { color: var(--cor-vermelho); }
 .logo span:not(.estrela) { color: var(--cor-verde); }
 .bandeira { height: 38px; border-radius: 4px; vertical-align: middle; margin-right: 12px; }
 
 /* =========================================================
-   VISUAL DINÂMICO (cores e movimento)
+   Visual mais vivo (cores e movimento)
    ========================================================= */
 .hero { position: relative; overflow: hidden; background: linear-gradient(120deg, #0E1B6B, #1B2FA8, #2540C8, #1B2FA8); background-size: 250% 250%; animation: fluir 14s ease infinite; }
 @keyframes fluir { 50% { background-position: 100% 50%; } }
+/* Duas bolas borradas (vermelha e verde) no fundo do hero */
 .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); opacity: .45; pointer-events: none; }
 .hero::before { width: 320px; height: 320px; background: var(--cor-vermelho); top: -120px; left: -80px; }
 .hero::after { width: 360px; height: 360px; background: var(--cor-verde); bottom: -160px; right: 25%; }
@@ -265,7 +266,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .hero .botao-destaque { animation: brilho 2.4s ease-in-out infinite; font-size: 1.05rem; padding: 14px 28px; }
 @keyframes brilho { 50% { box-shadow: 0 0 0 10px rgba(216,50,43,.18), 0 6px 16px rgba(216,50,43,.35); } }
 
-/* Mapa vivo */
+/* Mapa com movimento */
 .mapa-area { position: relative; padding-bottom: 28px; }
 .mapa { transform: rotate(1.5deg); }
 .pino { animation: flutuar 2.8s ease-in-out infinite; }
@@ -276,14 +277,14 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .ponto { width: 12px; height: 12px; border-radius: 50%; background: var(--cor-verde); animation: pulso 1.6s infinite; flex: none; }
 @keyframes pulso { 0% { box-shadow: 0 0 0 0 rgba(46,158,85,.6); } 100% { box-shadow: 0 0 0 12px rgba(46,158,85,0); } }
 
-/* Cards de estatística coloridos */
+/* Cards de números com cor (cada um define a sua em --c) */
 .stat { border-top: 5px solid var(--c, var(--cor-principal)); transition: transform .2s, box-shadow .2s; animation: entrar .6s both; }
 .stat:nth-child(2) { animation-delay: .1s; } .stat:nth-child(3) { animation-delay: .2s; } .stat:nth-child(4) { animation-delay: .3s; }
 .stat:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(27,47,168,.15); }
 .stat strong { color: var(--c, var(--cor-principal)); font-size: 2.8rem; line-height: 1.1; }
 .stat .icone { display: block; font-size: 1.5rem; }
 
-/* Categorias clicáveis */
+/* Categorias (botões que levam pra lista filtrada) */
 .faixa-categorias { padding-top: 64px; }
 .faixa-categorias h2 { font-size: 1.9rem; }
 .faixa-categorias p { color: var(--cor-texto-suave); margin: 4px 0 18px; }
@@ -299,6 +300,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 .painel { background: #fff; border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 24px; box-shadow: var(--sombra); animation: entrar .6s .2s both; }
 .painel h3 { margin-bottom: 18px; }
 .rosca-area { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+/* O gráfico de rosca é um conic-gradient (o JS troca as cores) com um círculo branco no meio */
 .rosca { width: 160px; height: 160px; border-radius: 50%; display: grid; place-items: center; background: #E1E7EF; transition: background .5s; flex: none; }
 .rosca > div { width: 110px; height: 110px; border-radius: 50%; background: #fff; display: grid; place-content: center; text-align: center; }
 .rosca b { font-size: 1.7rem; color: var(--cor-verde); line-height: 1; }
@@ -313,7 +315,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
 @media (max-width: 900px) { .painel-grade { grid-template-columns: 1fr; } }
 
 /* =========================================================
-   AÇÕES DE EDIÇÃO E EXCLUSÃO
+   Botões de editar e excluir
    ========================================================= */
 .acoes-detalhe {
   display: flex;
@@ -373,7 +375,7 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
   border: 1px solid var(--cor-borda);
 }
 
-/* Panorama com 5 indicadores */
+/* Panorama: agora são 5 cards, então ajustei as colunas */
 .stats-simples {
   grid-template-columns: repeat(5, 1fr);
   margin-top: 24px;

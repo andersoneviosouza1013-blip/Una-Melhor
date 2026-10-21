@@ -1,11 +1,9 @@
 /* =========================================================
-   Una Melhor — script.js (versão completa do MVP)
-   Blocos: 1 Configuração | 2 Dados | 3 Navegação | 4 Registrar
-           5 Lista e filtros | 6 Detalhes | 7 Estatísticas
-           8 Editar e excluir
+   Una Melhor — script.js
+   Tudo roda no navegador, os dados ficam no localStorage.
    ========================================================= */
 
-/* ---------- 1. CONFIGURAÇÃO ---------- */
+/* ---------- Configuração ---------- */
 const CATEGORIAS = {
   lixo: "🗑️ Limpeza e lixo",
   infra: "🚧 Infraestrutura",
@@ -24,6 +22,7 @@ const STATUS = {
   resolvido: "🟢 Resolvido"
 };
 
+// Textos da barra de progresso na tela de detalhes
 const ETAPAS = [
   "REGISTRADO",
   "EM ANÁLISE",
@@ -33,7 +32,7 @@ const ETAPAS = [
 
 const CHAVE = "unamelhor_dados";
 
-/* ---------- 2. DADOS (localStorage) ---------- */
+/* ---------- Dados (localStorage) ---------- */
 function lerProblemas() {
   try {
     return JSON.parse(localStorage.getItem(CHAVE)) || [];
@@ -47,7 +46,7 @@ function salvarProblemas(lista) {
   localStorage.setItem(CHAVE, JSON.stringify(lista));
 }
 
-// Evita que texto digitado vire código HTML
+// Escapa o texto pra ninguém conseguir injetar HTML pelo formulário
 function esc(t) {
   const d = document.createElement("div");
   d.textContent = t ?? "";
@@ -62,18 +61,20 @@ const formatarData = (iso) => {
     : data.toLocaleDateString("pt-BR");
 };
 
-/* ---------- 3. NAVEGAÇÃO ---------- */
+/* ---------- Navegação entre telas ---------- */
 function mostrarTela(nome) {
   document
     .querySelectorAll(".tela")
     .forEach(t => t.classList.remove("ativa"));
 
+  // Se o nome não existir, volta pra home
   const tela =
     document.getElementById(nome) ||
     document.getElementById("home");
 
   tela.classList.add("ativa");
 
+  // Destaca no menu a página em que a pessoa está
   document.querySelectorAll(".menu a").forEach(l =>
     l.classList.toggle(
       "atual",
@@ -81,6 +82,7 @@ function mostrarTela(nome) {
     )
   );
 
+  // Fecha o menu do celular
   const menu = document.getElementById("menu");
 
   if (menu) {
@@ -89,7 +91,7 @@ function mostrarTela(nome) {
 
   window.scrollTo(0, 0);
 
-  // Atualiza o conteúdo da tela sempre que ela é aberta
+  // Recarrega o conteúdo toda vez que a tela abre, pra não ficar desatualizado
   if (tela.id === "home") {
     atualizarHome();
   }
@@ -107,6 +109,7 @@ function mostrarTela(nome) {
   }
 }
 
+// Qualquer elemento com data-tela funciona como link de navegação
 document.addEventListener("click", function (e) {
   const link = e.target.closest("[data-tela]");
 
@@ -125,7 +128,7 @@ document
       .classList.toggle("aberto")
   );
 
-// Preenche os selects de categoria e status
+// Monta as <option> dos selects (a primeira é o texto padrão)
 function opcoes(obj, primeira) {
   return (
     `<option value="">${primeira}</option>` +
@@ -156,7 +159,7 @@ document.getElementById("filtroStatus").innerHTML =
     "Todos os status"
   );
 
-/* ---------- 4. REGISTRAR PROBLEMA ---------- */
+/* ---------- Registrar problema ---------- */
 document
   .getElementById("formulario")
   .addEventListener("submit", function (e) {
@@ -165,6 +168,7 @@ document
     const arquivo =
       document.getElementById("imagem").files[0];
 
+    // O localStorage tem pouco espaço, por isso o limite de 500 KB
     if (arquivo && arquivo.size > 500 * 1024) {
       alert(
         "A imagem é grande demais. Escolha uma de até 500 KB."
@@ -172,6 +176,7 @@ document
       return;
     }
 
+    // A foto é guardada como texto (base64), então precisa ler o arquivo antes de salvar
     const leitor = new FileReader();
 
     leitor.onload = () =>
@@ -189,6 +194,7 @@ document
 function salvarNovo(imagem) {
   const lista = lerProblemas();
 
+  // unshift coloca o novo no começo, aí o mais recente aparece primeiro
   lista.unshift({
     id: Date.now(),
     categoria:
@@ -224,7 +230,7 @@ function salvarNovo(imagem) {
   atualizarHome();
 }
 
-/* ---------- 5. LISTA, FILTROS E BUSCA ---------- */
+/* ---------- Lista, filtros e busca ---------- */
 function renderizarLista() {
   const cat =
     document.getElementById("filtroCategoria").value;
@@ -241,6 +247,7 @@ function renderizarLista() {
 
   const todos = lerProblemas();
 
+  // Filtro vazio deixa passar tudo; a busca olha título, local e descrição
   const filtrados = todos.filter(p =>
     (!cat || p.categoria === cat) &&
     (!st || p.status === st) &&
@@ -249,6 +256,7 @@ function renderizarLista() {
       .includes(busca)
   );
 
+  // Três casos: nada registrado ainda, nada bate com o filtro, ou mostra os cards
   document.getElementById("listaProblemas").innerHTML =
     filtrados.length === 0
       ? todos.length === 0
@@ -316,6 +324,7 @@ function renderizarLista() {
           .join("");
 }
 
+// Atualiza a lista na hora, conforme a pessoa digita ou muda o filtro
 [
   "busca",
   "filtroCategoria",
@@ -329,7 +338,7 @@ function renderizarLista() {
     )
 );
 
-/* ---------- 6. DETALHES, STATUS, EDITAR E EXCLUIR ---------- */
+/* ---------- Detalhes e mudança de status ---------- */
 
 function encontrarProblema(id) {
   return lerProblemas().find(
@@ -350,6 +359,7 @@ function abrirDetalhes(id) {
     return;
   }
 
+  // Posição do status atual, usada pra pintar a barra de progresso
   const posicao = Math.max(
     0,
     Object.keys(STATUS).indexOf(
@@ -503,6 +513,7 @@ function mudarStatus(id, novo) {
 
   salvarProblemas(lista);
 
+  // Reabre os detalhes pra mostrar o novo status e atualiza os números
   abrirDetalhes(id);
 
   atualizarHome();
@@ -510,7 +521,7 @@ function mudarStatus(id, novo) {
   renderizarDashboard();
 }
 
-/* ---------- 8. EDITAR ---------- */
+/* ---------- Editar ---------- */
 
 function ativarEdicao(id) {
   const p = encontrarProblema(id);
@@ -668,6 +679,7 @@ function ativarEdicao(id) {
     </div>
   `;
 
+  // O formulário acabou de ser criado, então o evento é ligado aqui
   document
     .getElementById("formEdicao")
     .addEventListener(
@@ -732,6 +744,7 @@ function salvarEdicao(id) {
       "editarLocalizacao"
     ).value.trim();
 
+  // novaImagem vem null quando a pessoa não escolheu foto nova
   const finalizar = novaImagem => {
 
     if (novaImagem !== null) {
@@ -781,13 +794,13 @@ function salvarEdicao(id) {
 
   } else {
 
-    // Mantém a foto atual
+    // Sem foto nova, fica a que já estava
     finalizar(null);
 
   }
 }
 
-/* ---------- 9. EXCLUIR ---------- */
+/* ---------- Excluir ---------- */
 
 function excluirProblema(id) {
   const problema =
@@ -837,7 +850,7 @@ function excluirProblema(id) {
   }
 }
 
-/* ---------- 7. ESTATÍSTICAS ---------- */
+/* ---------- Estatísticas ---------- */
 
 function contar(lista, status) {
   return lista.filter(
@@ -845,6 +858,7 @@ function contar(lista, status) {
   ).length;
 }
 
+// Atalho pra não repetir document.getElementById toda hora
 const $ = id =>
   document.getElementById(id);
 
@@ -866,7 +880,7 @@ const CORES_STATUS = {
   resolvido: "#2E9E55"
 };
 
-// Anima os números das estatísticas
+// Faz o número subir de 0 até o valor final (começa rápido e vai desacelerando)
 function animar(el, alvo) {
   if (!el) return;
 
@@ -899,7 +913,7 @@ function animar(el, alvo) {
   })(inicio);
 }
 
-/* ---------- HOME ---------- */
+/* ---------- Home ---------- */
 
 function atualizarHome() {
   const lista = lerProblemas();
@@ -933,6 +947,7 @@ function atualizarHome() {
     )
   );
 
+  // Cartãozinho do mapa: o último registro fica sempre na posição 0
   $("ultimoRegistro").innerHTML =
     lista[0]
 
@@ -971,7 +986,7 @@ function atualizarHome() {
       `;
 }
 
-/* ---------- PANORAMA ---------- */
+/* ---------- Panorama ---------- */
 
 function renderizarDashboard() {
   const lista = lerProblemas();
@@ -1064,7 +1079,7 @@ function renderizarDashboard() {
       )
     );
 
-  // Gráfico de rosca
+  // Gráfico de rosca: cada status ocupa uma fatia (em %) do conic-gradient
   let acumulado = 0;
 
   const fatias = [];
@@ -1101,6 +1116,7 @@ function renderizarDashboard() {
 
     });
 
+  // Sem nenhum registro, a rosca fica cinza
   $("rosca").style.background =
     n
       ? `conic-gradient(${fatias.join(",")})`
@@ -1148,7 +1164,7 @@ function renderizarDashboard() {
       )
       .join("");
 
-  // Barras por categoria
+  // Barras por categoria, da que tem mais problemas pra que tem menos
   $("barrasCategoria").innerHTML =
     Object.keys(
       CATEGORIAS
@@ -1211,7 +1227,7 @@ function renderizarDashboard() {
       .join("");
 }
 
-/* ---------- CATEGORIAS CLICÁVEIS ---------- */
+/* ---------- Categorias da home (clicáveis) ---------- */
 
 $("chips").innerHTML =
   Object.keys(
@@ -1234,6 +1250,7 @@ $("chips").innerHTML =
     )
     .join("");
 
+// Clicou numa categoria: abre a lista já filtrada por ela
 $("chips").addEventListener(
   "click",
   function (e) {
@@ -1254,8 +1271,8 @@ $("chips").addEventListener(
   }
 );
 
-// Ao abrir "Problemas" pelo menu,
-// limpa a categoria escolhida
+// Se a pessoa abre "Problemas" pelo menu, zera o filtro de categoria
+// pra não ficar preso na categoria que ela clicou antes
 document
   .querySelectorAll(
     ".menu a[data-tela=problemas]"
@@ -1270,8 +1287,9 @@ document
     )
   );
 
-/* ---------- INÍCIO ---------- */
+/* ---------- Começo ---------- */
 
+// Abre a tela que está no endereço (#problemas, por exemplo) ou a home
 mostrarTela(
   location.hash.replace(
     "#",

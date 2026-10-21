@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ===== HEADER (aparece em todas as telas) ===== -->
+  <!-- Cabeçalho: fica igual em todas as telas -->
   <header class="header">
     <div class="container header-conteudo">
       <a href="#home" class="logo" data-tela="home"><span class="estrela">★</span> Una <span>Melhor</span></a>
 
+      <!-- Botão que só aparece no celular -->
       <button class="menu-botao" id="menuBotao" aria-label="Abrir menu">☰</button>
 
       <nav class="menu" id="menu">
@@ -24,7 +25,7 @@
   </header>
 
   <main>
-    <!--TELA 1: HOME-->
+    <!-- Tela 1: início -->
     <section id="home" class="tela ativa">
       <div class="hero">
         <div class="container hero-grade">
@@ -40,6 +41,7 @@
             </div>
           </div>
 
+          <!-- Mapinha decorativo, é só CSS (não é um mapa de verdade) -->
           <div class="mapa-area">
             <div class="mapa" aria-hidden="true">
               <span class="rua rua-h1"></span>
@@ -52,11 +54,13 @@
               <span class="pino pino-verde" style="top:70%; left:25%">💧</span>
               <span class="pino pino-azul" style="top:30%; left:70%">🗑️</span>
             </div>
+            <!-- O JS preenche com o último problema registrado -->
             <div class="mapa-card" id="ultimoRegistro" aria-live="polite"></div>
           </div>
         </div>
       </div>
 
+      <!-- Números rápidos (o JS atualiza) -->
       <div class="container">
         <div class="stats">
           <div class="stat" style="--c:#1B2FA8">
@@ -81,6 +85,7 @@
       <div class="container faixa-categorias">
         <h2>O que você pode registrar</h2>
         <p>Toque em uma categoria para ver o que já foi registrado.</p>
+        <!-- Os botões das categorias são criados pelo JS -->
         <div class="chips" id="chips"></div>
       </div>
 
@@ -95,7 +100,7 @@
       </div>
     </section>
 
-    <!-- ===== TELA 2: REGISTRAR PROBLEMA ===== -->
+    <!-- Tela 2: formulário pra registrar um problema -->
     <section id="registrar" class="tela">
       <div class="container estreito">
         <h2>Registrar problema</h2>
@@ -125,13 +130,14 @@
           <button type="submit" class="botao botao-destaque">Registrar problema</button>
         </form>
 
+        <!-- Mensagem que aparece depois de enviar -->
         <div id="sucesso" class="sucesso" hidden>
           ✅ Problema registrado! <a href="#problemas" data-tela="problemas">Ver na lista</a>
         </div>
       </div>
     </section>
 
-    <!-- ===== TELA 3: LISTA DE PROBLEMAS ===== -->
+    <!-- Tela 3: lista com busca e filtros -->
     <section id="problemas" class="tela">
       <div class="container">
         <h2>Problemas registrados</h2>
@@ -144,12 +150,12 @@
       </div>
     </section>
 
-    <!--TELA 4: DETALHES-->
+    <!-- Tela 4: detalhes de um problema (o JS monta o conteúdo) -->
     <section id="detalhes" class="tela">
       <div class="container estreito" id="conteudoDetalhes"></div>
     </section>
 
-    <!--TELA 5: DASHBOARD -->
+    <!-- Tela 5: panorama geral com os gráficos -->
     <section id="dashboard" class="tela">
       <div class="container">
         <h2>Panorama de São Bento do Una</h2>
@@ -178,7 +184,7 @@
     </section>
   </main>
 
-  <!--RODAPE-->
+  <!-- Rodapé -->
   <footer class="rodape">
     <div class="container">
       <img src="assets/imagens/bandeira.png" alt="Bandeira de São Bento do Una" class="bandeira">
