@@ -3,141 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Educa+ | Descubra o que estudar</title>
+  <title>Una Melhor — Sua cidade, sua voz, sua mudança.</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- ===== HEADER (aparece em todas as telas) ===== -->
+  <header class="header">
+    <div class="container header-conteudo">
+      <a href="#home" class="logo" data-tela="home"><span class="estrela">★</span> Una <span>Melhor</span></a>
 
-  <header class="topo">
-    <a class="logo" href="#" data-ir="tela-inicio">Educa<span>+</span></a>
-    <nav class="menu">
-      <button class="menu-link" data-ir="tela-conteudo">Conteúdos</button>
-      <button class="menu-link" data-ir="tela-evolucao">Minha evolução</button>
-    </nav>
+      <button class="menu-botao" id="menuBotao" aria-label="Abrir menu">☰</button>
+
+      <nav class="menu" id="menu">
+        <a href="#home" data-tela="home">Início</a>
+        <a href="#problemas" data-tela="problemas">Problemas</a>
+        <a href="#dashboard" data-tela="dashboard">Panorama</a>
+        <a href="#registrar" data-tela="registrar" class="botao botao-destaque">Registrar problema</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-
-    <!-- início -->
-    <section id="tela-inicio" class="tela ativa">
+    <!--TELA 1: HOME-->
+    <section id="home" class="tela ativa">
       <div class="hero">
-        <div class="hero-texto">
-          <h1>Tirou nota baixa e não sabe por onde começar?</h1>
-          <p class="lead">
-            Muitos estudantes sabem que foram mal na prova, mas não sabem
-            <strong>quais conteúdos</strong> precisam melhorar. O Educa+ faz um
-            diagnóstico rápido de Matemática, mostra seus pontos fracos e monta
-            uma trilha de estudos só para você.
-          </p>
-          <button class="btn btn-grande" id="btn-comecar">Começar diagnóstico</button>
-          <p class="nota">Leva poucos minutos. Não precisa de cadastro.</p>
-        </div>
+        <div class="container hero-grade">
+          <div class="hero-texto">
+            <p class="slogan">Sua cidade, sua voz, sua mudança.</p>
+            <h1>Viu algo que precisa melhorar em São Bento do Una?</h1>
+            <p class="hero-subtitulo">Registre. Acompanhe. Transforme.</p>
+            <p>O Una Melhor transforma os problemas relatados pelos moradores de São Bento do Una em informação organizada, para que todos acompanhem o que está sendo resolvido.</p>
 
-        <!-- exemplo de resultado -->
-        <div class="hero-card" aria-label="Exemplo de resultado do diagnóstico">
-          <p class="card-titulo">Exemplo de resultado</p>
-
-          <div class="linha">
-            <span class="linha-nome">Porcentagem</span>
-            <div class="barra"><div class="barra-cheia verde" style="width:80%"></div></div>
-            <span class="linha-valor">80% 🟢</span>
-          </div>
-          <div class="linha">
-            <span class="linha-nome">Equações</span>
-            <div class="barra"><div class="barra-cheia verde" style="width:70%"></div></div>
-            <span class="linha-valor">70% 🟢</span>
-          </div>
-          <div class="linha">
-            <span class="linha-nome">Funções</span>
-            <div class="barra"><div class="barra-cheia amarelo" style="width:50%"></div></div>
-            <span class="linha-valor">50% 🟡</span>
-          </div>
-          <div class="linha">
-            <span class="linha-nome">Geometria</span>
-            <div class="barra"><div class="barra-cheia vermelho" style="width:30%"></div></div>
-            <span class="linha-valor">30% 🔴</span>
+            <div class="hero-botoes">
+              <a href="#registrar" data-tela="registrar" class="botao botao-destaque">Registrar problema</a>
+              <a href="#problemas" data-tela="problemas" class="botao botao-contorno">Ver problemas</a>
+            </div>
           </div>
 
-          <p class="card-aviso">Seu principal ponto de atenção é <strong>Geometria</strong>.</p>
+          <div class="mapa-area">
+            <div class="mapa" aria-hidden="true">
+              <span class="rua rua-h1"></span>
+              <span class="rua rua-h2"></span>
+              <span class="rua rua-v1"></span>
+              <span class="rua rua-v2"></span>
+              <span class="parque"></span>
+              <span class="pino pino-vermelho" style="top:22%; left:28%">🚧</span>
+              <span class="pino pino-amarelo" style="top:55%; left:62%">💡</span>
+              <span class="pino pino-verde" style="top:70%; left:25%">💧</span>
+              <span class="pino pino-azul" style="top:30%; left:70%">🗑️</span>
+            </div>
+            <div class="mapa-card" id="ultimoRegistro" aria-live="polite"></div>
+          </div>
         </div>
       </div>
 
-      <div class="passos">
-        <h2>Como funciona</h2>
-        <ol class="passos-lista">
-          <li><strong>Diagnóstico</strong><span>Responda perguntas de 4 conteúdos de Matemática.</span></li>
-          <li><strong>Resultado</strong><span>Veja seu desempenho em cada conteúdo.</span></li>
-          <li><strong>Trilha</strong><span>Receba um plano de estudos para o seu maior desafio.</span></li>
-          <li><strong>Evolução</strong><span>Refaça o diagnóstico e veja quantos pontos você ganhou.</span></li>
+      <div class="container">
+        <div class="stats">
+          <div class="stat" style="--c:#1B2FA8">
+            <strong id="statTotal">0</strong>
+            <span>🔴 Problemas registrados</span>
+          </div>
+          <div class="stat" style="--c:#F2B01E">
+            <strong id="statAnalise">0</strong>
+            <span>🟡 Em análise</span>
+          </div>
+          <div class="stat" style="--c:#3B82F6">
+            <strong id="statAndamento">0</strong>
+            <span>🔵 Em andamento</span>
+          </div>
+          <div class="stat" style="--c:#2E9E55">
+            <strong id="statResolvidos">0</strong>
+            <span>🟢 Resolvidos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container faixa-categorias">
+        <h2>O que você pode registrar</h2>
+        <p>Toque em uma categoria para ver o que já foi registrado.</p>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="container como-funciona">
+        <h2>Como funciona?</h2>
+        <ol class="passos">
+          <li><span class="passo-num">1</span><h3>Você encontra um problema</h3><p>Lixo, buraco, poste apagado… se está errado, vale registrar.</p></li>
+          <li><span class="passo-num">2</span><h3>Registra na plataforma</h3><p>Escolha a categoria, descreva e informe o local.</p></li>
+          <li><span class="passo-num">3</span><h3>A comunidade acompanha</h3><p>Todos veem o status e quais problemas se repetem mais.</p></li>
+          <li><span class="passo-num">4</span><h3>O problema pode ser solucionado</h3><p>Com dados organizados, fica mais fácil cobrar e resolver.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- nome -->
-    <section id="tela-identificacao" class="tela">
-      <div class="caixa">
-        <h2>Qual é o seu nome?</h2>
-        <p>Vamos usar seu nome para guardar o seu diagnóstico e a sua evolução.</p>
-        <input id="campo-nome" class="campo" type="text" maxlength="30" placeholder="Digite seu nome" autocomplete="off">
-        <p id="erro-nome" class="erro"></p>
-        <button class="btn" id="btn-nome">Continuar para o diagnóstico</button>
+    <!-- ===== TELA 2: REGISTRAR PROBLEMA ===== -->
+    <section id="registrar" class="tela">
+      <div class="container estreito">
+        <h2>Registrar problema</h2>
+        <p class="em-breve">Conte o que você viu. Leva menos de um minuto.</p>
+
+        <form id="formulario" class="formulario">
+          <label>Categoria
+            <select id="categoria" required></select>
+          </label>
+
+          <label>Título
+            <input id="titulo" maxlength="80" placeholder="Buraco em frente à escola" required>
+          </label>
+
+          <label>Descrição
+            <textarea id="descricao" rows="4" placeholder="Existe um buraco grande próximo à entrada da escola." required></textarea>
+          </label>
+
+          <label>Localização
+            <input id="localizacao" placeholder="Rua X, Bairro Y" required>
+          </label>
+
+          <label>Foto (opcional, até 500 KB)
+            <input id="imagem" type="file" accept="image/*">
+          </label>
+
+          <button type="submit" class="botao botao-destaque">Registrar problema</button>
+        </form>
+
+        <div id="sucesso" class="sucesso" hidden>
+          ✅ Problema registrado! <a href="#problemas" data-tela="problemas">Ver na lista</a>
+        </div>
       </div>
     </section>
 
-    <!-- perguntas (serve pro diagnóstico e pro treino) -->
-    <section id="tela-quiz" class="tela">
-      <div class="caixa caixa-larga">
-        <p id="quiz-titulo" class="quiz-titulo"></p>
-        <div class="progresso"><div id="quiz-barra" class="progresso-cheio"></div></div>
-        <p id="quiz-contador" class="quiz-contador"></p>
-        <h2 id="quiz-pergunta"></h2>
-        <div id="quiz-opcoes" class="opcoes"></div>
-        <p id="quiz-feedback" class="feedback"></p>
-        <button class="btn" id="btn-quiz">Responder</button>
+    <!-- ===== TELA 3: LISTA DE PROBLEMAS ===== -->
+    <section id="problemas" class="tela">
+      <div class="container">
+        <h2>Problemas registrados</h2>
+        <div class="filtros">
+          <input id="busca" type="search" placeholder="🔍 Buscar por título, local ou descrição">
+          <select id="filtroCategoria"></select>
+          <select id="filtroStatus"></select>
+        </div>
+        <div id="listaProblemas" class="grade-cards"></div>
       </div>
     </section>
 
-    <!-- resultado -->
-    <section id="tela-resultado" class="tela">
-      <div class="caixa caixa-larga resultado">
-        <h2 id="resultado-titulo">Seu resultado</h2>
-        <div id="resultado-conteudo"></div>
+    <!--TELA 4: DETALHES-->
+    <section id="detalhes" class="tela">
+      <div class="container estreito" id="conteudoDetalhes"></div>
+    </section>
+
+    <!--TELA 5: DASHBOARD -->
+    <section id="dashboard" class="tela">
+      <div class="container">
+        <h2>Panorama de São Bento do Una</h2>
+        <div class="stats stats-simples" id="statsDashboard"></div>
+
+        <div class="painel-grade">
+          <div class="painel">
+            <h3>Situação dos problemas</h3>
+            <div class="rosca-area">
+              <div class="rosca" id="rosca">
+                <div>
+                  <b id="roscaPct">0%</b>
+                  <small>resolvidos</small>
+                </div>
+              </div>
+              <ul class="legenda" id="legenda"></ul>
+            </div>
+          </div>
+
+          <div class="painel">
+            <h3>Problemas por categoria</h3>
+            <div id="barrasCategoria" class="barras"></div>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- trilha -->
-    <section id="tela-trilha" class="tela">
-      <div class="caixa caixa-larga">
-        <h2>Sua trilha de estudos</h2>
-        <div id="trilha-conteudo"></div>
-      </div>
-    </section>
-
-    <!-- conteúdos -->
-    <section id="tela-conteudo" class="tela">
-      <div class="caixa caixa-larga">
-        <h2>Conteúdos de Matemática</h2>
-        <div id="abas" class="abas"></div>
-        <div id="conteudo-painel"></div>
-      </div>
-    </section>
-
-    <!-- fim do treino -->
-    <section id="tela-fim-treino" class="tela">
-      <div class="caixa caixa-larga" id="fim-treino-conteudo"></div>
-    </section>
-
-    <!-- evolução -->
-    <section id="tela-evolucao" class="tela">
-      <div class="caixa caixa-larga">
-        <h2>Minha evolução</h2>
-        <div id="evolucao-conteudo"></div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="rodape">Educa+ · Projeto educacional · Matemática do Ensino Médio</footer>
+  <!--RODAPE-->
+  <footer class="rodape">
+    <div class="container">
+      <img src="assets/imagens/bandeira.png" alt="Bandeira de São Bento do Una" class="bandeira">
+      <strong>Una Melhor</strong> — Sua cidade, sua voz, sua mudança.
+      <p>Plataforma de participação cidadã de São Bento do Una. Projeto escolar para a maratona de tecnologia. Dados de demonstração.</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
