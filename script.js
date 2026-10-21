@@ -1,6 +1,6 @@
-// ===== Educa+ — script principal =====
+// script do Educa+
 
-// ---------- 1. DADOS: conteúdos ----------
+// conteúdos de estudo
 const ASSUNTOS = {
   porcentagem: { nome: "Porcentagem", conceitos: [
     ["O que é porcentagem", "É uma fração de denominador 100. Exemplo: 20% = 20/100 = 0,20."],
@@ -21,13 +21,13 @@ const ASSUNTOS = {
 };
 const ORDEM = ["porcentagem", "equacoes", "funcoes", "geometria"];
 
-// ---------- 2. DADOS: banco de questões ----------
-// q() cria objetos no formato { id, assunto, pergunta, opcoes, resposta }
+// banco de questões
+// monta o objeto de cada questão
 let contadorId = 0;
 const q = (assunto, pergunta, opcoes, resposta) =>
   ({ id: ++contadorId, assunto, pergunta, opcoes, resposta });
 
-// Diagnóstico: 3 questões por conteúdo (12 no total)
+// diagnóstico: 3 de cada assunto
 const DIAGNOSTICO = [
   q("porcentagem", "Quanto é 20% de 150?", ["20", "25", "30", "35"], "30"),
   q("porcentagem", "Um produto de R$ 80 recebe 15% de desconto. Quanto passa a custar?", ["R$ 65", "R$ 68", "R$ 70", "R$ 72"], "R$ 68"),
@@ -43,7 +43,7 @@ const DIAGNOSTICO = [
   q("geometria", "Um triângulo retângulo tem catetos 3 e 4. Qual é a hipotenusa?", ["5", "6", "7", "12"], "5")
 ];
 
-// Treino: 5 questões por conteúdo (usadas depois do diagnóstico)
+// treino (depois do diagnóstico): 5 de cada assunto
 const TREINO = [
   q("porcentagem", "Quanto é 50% de 240?", ["100", "110", "120", "150"], "120"),
   q("porcentagem", "15 é quantos por cento de 60?", ["20%", "25%", "30%", "15%"], "25%"),
@@ -67,9 +67,9 @@ const TREINO = [
   q("geometria", "Catetos 6 e 8: qual é a hipotenusa?", ["10", "12", "14", "100"], "10")
 ];
 
-// ---------- 3. ARMAZENAMENTO (localStorage com proteção) ----------
+// salvar e carregar (localStorage)
 const CHAVE = "educaplus_v1";
-let memoria = null; // plano B: se o navegador bloquear o localStorage, o app continua funcionando
+let memoria = null; // se o localStorage falhar, guarda só aqui
 
 function carregarDados() {
   try {
@@ -78,19 +78,19 @@ function carregarDados() {
       const d = JSON.parse(texto);
       if (d && Array.isArray(d.historico)) return d;
     }
-  } catch (e) { /* ignora */ }
+  } catch (e) { }
   return memoria || { nome: "", historico: [] };
 }
 function salvarDados(d) {
   memoria = d;
-  try { localStorage.setItem(CHAVE, JSON.stringify(d)); } catch (e) { /* ignora */ }
+  try { localStorage.setItem(CHAVE, JSON.stringify(d)); } catch (e) { }
 }
-function ultimoResultado(pos) { // pos = 1 último, 2 penúltimo
+function ultimoResultado(pos) { // 1 = último, 2 = penúltimo
   const h = carregarDados().historico;
   return h[h.length - (pos || 1)] || null;
 }
 
-// ---------- 4. FUNÇÕES AUXILIARES ----------
+// funções de apoio
 function classificar(p) {
   if (p < 40) return { texto: "Precisa revisar", emoji: "🔴", cor: "vermelho" };
   if (p < 70) return { texto: "Precisa praticar", emoji: "🟡", cor: "amarelo" };
@@ -104,12 +104,12 @@ function embaralhar(lista) {
   }
   return a;
 }
-function ordenarPorDesempenho(r) { // do pior para o melhor
+function ordenarPorDesempenho(r) { // pior primeiro
   return ORDEM.slice().sort((x, y) => r.porAssunto[x] - r.porAssunto[y]);
 }
 function el(id) { return document.getElementById(id); }
 
-// ---------- 5. TELAS ----------
+// trocar de tela
 const RENDER = {
   "tela-identificacao": prepararIdentificacao,
   "tela-resultado": renderResultado,
@@ -124,7 +124,7 @@ function mostrarTela(id) {
   window.scrollTo(0, 0);
 }
 
-// Um único "ouvinte" para todos os botões da página (inclusive os criados depois)
+// um clique só pra todos os botões (os criados pelo js também)
 let conteudoAtual = "porcentagem";
 document.addEventListener("click", function (e) {
   const ir = e.target.closest("[data-ir]");
@@ -138,7 +138,7 @@ document.addEventListener("click", function (e) {
   else if (acao && acao.dataset.acao === "apagar") apagarDados();
 });
 
-// ---------- 6. PÁGINA INICIAL e IDENTIFICAÇÃO ----------
+// início e nome
 el("btn-comecar").addEventListener("click", () => mostrarTela("tela-identificacao"));
 
 function prepararIdentificacao() {
@@ -159,12 +159,12 @@ function confirmarNome() {
 el("btn-nome").addEventListener("click", confirmarNome);
 el("campo-nome").addEventListener("keydown", e => { if (e.key === "Enter") confirmarNome(); });
 
-function comecarDiagnostico() { // usado em "Refazer diagnóstico"
+function comecarDiagnostico() { // botão de refazer
   if (carregarDados().nome) iniciarDiagnostico();
   else mostrarTela("tela-identificacao");
 }
 
-// ---------- 7. PERGUNTAS (diagnóstico e treino) ----------
+// perguntas (diagnóstico e treino)
 let quiz = { modo: "", lista: [], i: 0, respostas: [], escolhida: null, respondida: false, assunto: "" };
 
 function iniciarDiagnostico() {
@@ -221,7 +221,7 @@ el("btn-quiz").addEventListener("click", function () {
     const acertou = quiz.escolhida === p.resposta;
     quiz.respostas.push({ assunto: p.assunto, acertou: acertou });
 
-    if (quiz.modo === "treino") { // no treino mostramos se acertou
+    if (quiz.modo === "treino") { // no treino mostra na hora se acertou
       el("quiz-opcoes").querySelectorAll(".opcao").forEach(function (o) {
         if (o.textContent === p.resposta) o.classList.add("certa");
         else if (o.textContent === quiz.escolhida) o.classList.add("errada");
@@ -240,7 +240,7 @@ el("btn-quiz").addEventListener("click", function () {
   }
 });
 
-// ---------- 8. CORREÇÃO e DESEMPENHO POR CONTEÚDO ----------
+// correção e porcentagem por assunto
 function finalizarDiagnostico() {
   const cont = {};
   ORDEM.forEach(a => cont[a] = { acertos: 0, total: 0 });
@@ -272,7 +272,7 @@ function linhaAssunto(a, pct) {
     '<span class="linha-valor">' + pct + '% ' + c.emoji + ' ' + c.texto + '</span></div>';
 }
 
-// ---------- 9. RESULTADO ----------
+// resultado
 function renderResultado() {
   const r = ultimoResultado();
   const caixa = el("resultado-conteudo");
@@ -300,7 +300,7 @@ function renderResultado() {
     '<button class="btn btn-claro" data-ir="tela-evolucao">Ver evolução</button></div>';
 }
 
-// ---------- 10. TRILHA PERSONALIZADA ----------
+// trilha
 function renderTrilha() {
   const r = ultimoResultado();
   const caixa = el("trilha-conteudo");
@@ -309,7 +309,7 @@ function renderTrilha() {
     return;
   }
   const ordenados = ordenarPorDesempenho(r);
-  let foco = ordenados.filter(a => r.porAssunto[a] < 70); // do menor para o maior desempenho
+  let foco = ordenados.filter(a => r.porAssunto[a] < 70); // só quem ficou abaixo de 70
   let intro = "Priorizamos os conteúdos em que você foi pior, começando pelo menor desempenho.";
   if (foco.length === 0) {
     foco = [ordenados[0]];
@@ -336,7 +336,7 @@ function renderTrilha() {
   caixa.innerHTML = html;
 }
 
-// ---------- 11. TREINO (5 questões) ----------
+// fim do treino
 function finalizarTreino() {
   const acertos = quiz.respostas.filter(r => r.acertou).length;
   const total = quiz.respostas.length;
@@ -354,7 +354,7 @@ function finalizarTreino() {
   mostrarTela("tela-fim-treino");
 }
 
-// ---------- 12. CONTEÚDO ----------
+// conteúdos
 function renderConteudo() {
   let abas = "";
   ORDEM.forEach(a => abas += '<button class="aba' + (a === conteudoAtual ? " ativa" : "") + '" data-estudar="' + a + '">' + ASSUNTOS[a].nome + '</button>');
@@ -365,7 +365,7 @@ function renderConteudo() {
   el("conteudo-painel").innerHTML = html;
 }
 
-// ---------- 13. EVOLUÇÃO ----------
+// evolução
 function textoPontos(dif) {
   if (dif > 0) return '<span class="pontos sobe">+' + dif + ' pontos de evolução</span>';
   if (dif < 0) return '<span class="pontos desce">' + dif + ' pontos</span>';
