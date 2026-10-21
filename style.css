@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* =========================================================
    Una Melhor — style.css
    Identidade visual: cores da bandeira de São Bento do Una
@@ -405,3 +406,190 @@ input:focus, select:focus, textarea:focus { outline: 3px solid rgba(27,47,168,.2
     grid-template-columns: 1fr;
   }
 }
+=======
+/* Educa+ */
+
+:root {
+  --tinta: #1b1740;
+  --roxo: #5b3df5;
+  --roxo-escuro: #4528d6;
+  --fundo: #f6f5ff;
+  --branco: #ffffff;
+  --cinza: #6b6985;
+  --borda: #e3e0f7;
+  --verde: #22b573;
+  --amarelo: #f5b50a;
+  --vermelho: #ee4d5f;
+  --raio: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--tinta);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* topo */
+.topo {
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1080px; width: 100%; margin: 0 auto; padding: 18px 20px;
+}
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--tinta); text-decoration: none; letter-spacing: -0.5px; }
+.logo span { color: var(--roxo); }
+.menu-link {
+  background: none; border: 2px solid var(--borda); color: var(--tinta);
+  padding: 8px 16px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.menu-link:hover { border-color: var(--roxo); color: var(--roxo); }
+
+/* só a tela ativa aparece */
+.tela { display: none; }
+.tela.ativa { display: block; }
+
+/* botões */
+.btn {
+  display: inline-block; background: var(--roxo); color: var(--branco);
+  border: none; padding: 12px 24px; border-radius: 14px;
+  font: inherit; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 0 var(--roxo-escuro);
+  transition: transform .1s, box-shadow .1s;
+}
+.btn:hover { background: #6b4ff7; }
+.btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--roxo-escuro); }
+.btn-grande { font-size: 1.15rem; padding: 16px 32px; }
+.btn-claro { background: var(--branco); color: var(--tinta); box-shadow: 0 6px 0 var(--borda); border: 2px solid var(--borda); }
+.btn-claro:hover { background: var(--branco); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
+
+/* página inicial */
+.hero {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px;
+  align-items: center; padding: 40px 0 30px;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; margin-bottom: 18px; }
+.lead { font-size: 1.1rem; color: var(--cinza); max-width: 52ch; margin-bottom: 28px; }
+.lead strong { color: var(--tinta); }
+.nota { margin-top: 18px; font-size: .9rem; color: var(--cinza); }
+
+/* card de exemplo */
+.hero-card {
+  background: var(--branco); border: 2px solid var(--borda);
+  border-radius: var(--raio); padding: 24px;
+  box-shadow: 0 10px 0 var(--borda);
+}
+.card-titulo { font-weight: 700; color: var(--cinza); margin-bottom: 16px; }
+.linha { display: grid; grid-template-columns: 100px 1fr 62px; gap: 10px; align-items: center; margin-bottom: 14px; }
+.linha-nome { font-weight: 600; font-size: .95rem; }
+.linha-valor { font-weight: 700; font-size: .9rem; text-align: right; }
+.barra { background: #eeecfb; height: 14px; border-radius: 999px; overflow: hidden; }
+.barra-cheia { height: 100%; border-radius: 999px; }
+.verde { background: var(--verde); }
+.amarelo { background: var(--amarelo); }
+.vermelho { background: var(--vermelho); }
+.card-aviso {
+  margin-top: 8px; padding: 12px 14px; border-radius: 12px;
+  background: #ffeef0; color: #a3202f; font-size: .95rem;
+}
+
+/* como funciona */
+.passos { padding: 30px 0 50px; }
+.passos h2 { margin-bottom: 18px; }
+.passos-lista { list-style: none; counter-reset: passo; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.passos-lista li {
+  counter-increment: passo; background: var(--branco); border: 2px solid var(--borda);
+  border-radius: var(--raio); padding: 18px;
+}
+.passos-lista li::before {
+  content: counter(passo); display: inline-grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--tinta); color: var(--branco); font-weight: 700; margin-bottom: 10px;
+}
+.passos-lista strong { display: block; }
+.passos-lista span { color: var(--cinza); font-size: .92rem; }
+
+/* caixa das outras telas */
+.caixa {
+  max-width: 520px; margin: 50px auto; background: var(--branco);
+  border: 2px solid var(--borda); border-radius: var(--raio); padding: 32px;
+}
+.caixa h2 { margin-bottom: 10px; }
+.caixa p { color: var(--cinza); margin-bottom: 20px; }
+
+.rodape { text-align: center; padding: 24px; color: var(--cinza); font-size: .85rem; }
+
+/* celular */
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; padding-top: 20px; }
+  .passos-lista { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .passos-lista { grid-template-columns: 1fr; }
+  .linha { grid-template-columns: 84px 1fr 58px; }
+  .btn-grande { width: 100%; }
+}
+
+/* telas do diagnóstico em diante */
+.caixa-larga { max-width: 760px; }
+.campo { width: 100%; padding: 14px; font: inherit; font-size: 1.05rem; border: 2px solid var(--borda); border-radius: 12px; margin-bottom: 8px; }
+.campo:focus { outline: none; border-color: var(--roxo); }
+.erro { color: var(--vermelho) !important; min-height: 1.4em; margin-bottom: 8px !important; font-size: .9rem; }
+
+/* perguntas */
+.quiz-titulo { font-weight: 700; color: var(--roxo) !important; margin-bottom: 8px !important; }
+.progresso { background: #eeecfb; height: 12px; border-radius: 999px; overflow: hidden; }
+.progresso-cheio { height: 100%; width: 0; background: var(--roxo); transition: width .3s; }
+.quiz-contador { font-size: .9rem; margin: 6px 0 18px !important; }
+.opcoes { display: grid; gap: 10px; margin: 18px 0; }
+.opcao { text-align: left; background: var(--branco); border: 2px solid var(--borda); border-radius: 12px; padding: 14px 16px; font: inherit; font-weight: 600; color: var(--tinta); cursor: pointer; }
+.opcao:hover { border-color: var(--roxo); }
+.opcao.marcada { border-color: var(--roxo); background: #efeaff; }
+.opcao.certa { border-color: var(--verde); background: #e4f8ee; }
+.opcao.errada { border-color: var(--vermelho); background: #ffeef0; }
+.feedback { min-height: 1.6em; font-weight: 700; color: var(--tinta) !important; }
+
+/* resultado */
+.resultado .linha { grid-template-columns: 120px 1fr 190px; }
+.geral { font-size: 3rem; font-weight: 800; line-height: 1; }
+.geral small { display: block; font-size: 1rem; font-weight: 600; color: var(--cinza); margin-top: 6px; }
+.atencao { margin: 20px 0; padding: 14px 16px; border-radius: 12px; background: #fff6df; color: #7a5600; font-weight: 600; }
+.acoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+/* trilha */
+.trilha-bloco { border: 2px solid var(--borda); border-radius: var(--raio); padding: 18px; margin-bottom: 16px; }
+.trilha-bloco h3 { margin-bottom: 10px; }
+.etapa { padding: 10px 0; border-top: 1px dashed var(--borda); }
+.etapa b { display: block; }
+.etapa ul { margin: 4px 0 8px 20px; color: var(--cinza); }
+.etapa .btn { padding: 8px 16px; font-size: .9rem; box-shadow: 0 4px 0 var(--roxo-escuro); }
+
+/* conteúdos */
+.abas { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+.aba { background: var(--branco); border: 2px solid var(--borda); border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer; color: var(--tinta); }
+.aba.ativa { background: var(--tinta); color: var(--branco); border-color: var(--tinta); }
+.conceito { background: var(--fundo); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+.conceito b { display: block; }
+.conceito span { color: var(--cinza); }
+
+/* evolução */
+.evo-linha { border-top: 1px dashed var(--borda); padding: 12px 0; }
+.evo-linha .barra { margin: 4px 0; }
+.barra.antes .barra-cheia { background: #b9b5d6; }
+.pontos { font-weight: 800; }
+.pontos.sobe { color: var(--verde); } .pontos.desce { color: var(--vermelho); } .pontos.igual { color: var(--cinza); }
+.historico { margin: 8px 0 0 20px; color: var(--cinza); }
+.texto-pequeno { font-size: .85rem; }
+
+@media (max-width: 600px) {
+  .resultado .linha { grid-template-columns: 1fr; gap: 4px; }
+  .resultado .linha-valor { text-align: left; }
+  .acoes .btn { width: 100%; }
+}
+>>>>>>> 27e5279130fae28bb731643c9e21a3322041e391
