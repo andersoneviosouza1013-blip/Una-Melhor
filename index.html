@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Educa+ | Descubra o que estudar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a class="logo" href="#" data-ir="tela-inicio">Educa<span>+</span></a>
+    <nav class="menu">
+      <button class="menu-link" data-ir="tela-conteudo">Conteúdos</button>
+      <button class="menu-link" data-ir="tela-evolucao">Minha evolução</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- TELA 1: PÁGINA INICIAL -->
+    <section id="tela-inicio" class="tela ativa">
+      <div class="hero">
+        <div class="hero-texto">
+          <h1>Tirou nota baixa e não sabe por onde começar?</h1>
+          <p class="lead">
+            Muitos estudantes sabem que foram mal na prova, mas não sabem
+            <strong>quais conteúdos</strong> precisam melhorar. O Educa+ faz um
+            diagnóstico rápido de Matemática, mostra seus pontos fracos e monta
+            uma trilha de estudos só para você.
+          </p>
+          <button class="btn btn-grande" id="btn-comecar">Começar diagnóstico</button>
+          <p class="nota">Leva poucos minutos. Não precisa de cadastro.</p>
+        </div>
+
+        <!-- Exemplo visual do resultado -->
+        <div class="hero-card" aria-label="Exemplo de resultado do diagnóstico">
+          <p class="card-titulo">Exemplo de resultado</p>
+
+          <div class="linha">
+            <span class="linha-nome">Porcentagem</span>
+            <div class="barra"><div class="barra-cheia verde" style="width:80%"></div></div>
+            <span class="linha-valor">80% 🟢</span>
+          </div>
+          <div class="linha">
+            <span class="linha-nome">Equações</span>
+            <div class="barra"><div class="barra-cheia verde" style="width:70%"></div></div>
+            <span class="linha-valor">70% 🟢</span>
+          </div>
+          <div class="linha">
+            <span class="linha-nome">Funções</span>
+            <div class="barra"><div class="barra-cheia amarelo" style="width:50%"></div></div>
+            <span class="linha-valor">50% 🟡</span>
+          </div>
+          <div class="linha">
+            <span class="linha-nome">Geometria</span>
+            <div class="barra"><div class="barra-cheia vermelho" style="width:30%"></div></div>
+            <span class="linha-valor">30% 🔴</span>
+          </div>
+
+          <p class="card-aviso">Seu principal ponto de atenção é <strong>Geometria</strong>.</p>
+        </div>
+      </div>
+
+      <div class="passos">
+        <h2>Como funciona</h2>
+        <ol class="passos-lista">
+          <li><strong>Diagnóstico</strong><span>Responda perguntas de 4 conteúdos de Matemática.</span></li>
+          <li><strong>Resultado</strong><span>Veja seu desempenho em cada conteúdo.</span></li>
+          <li><strong>Trilha</strong><span>Receba um plano de estudos para o seu maior desafio.</span></li>
+          <li><strong>Evolução</strong><span>Refaça o diagnóstico e veja quantos pontos você ganhou.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TELA 2: IDENTIFICAÇÃO -->
+    <section id="tela-identificacao" class="tela">
+      <div class="caixa">
+        <h2>Qual é o seu nome?</h2>
+        <p>Vamos usar seu nome para guardar o seu diagnóstico e a sua evolução.</p>
+        <input id="campo-nome" class="campo" type="text" maxlength="30" placeholder="Digite seu nome" autocomplete="off">
+        <p id="erro-nome" class="erro"></p>
+        <button class="btn" id="btn-nome">Continuar para o diagnóstico</button>
+      </div>
+    </section>
+
+    <!-- TELA 3: PERGUNTAS (diagnóstico e treino usam a mesma tela) -->
+    <section id="tela-quiz" class="tela">
+      <div class="caixa caixa-larga">
+        <p id="quiz-titulo" class="quiz-titulo"></p>
+        <div class="progresso"><div id="quiz-barra" class="progresso-cheio"></div></div>
+        <p id="quiz-contador" class="quiz-contador"></p>
+        <h2 id="quiz-pergunta"></h2>
+        <div id="quiz-opcoes" class="opcoes"></div>
+        <p id="quiz-feedback" class="feedback"></p>
+        <button class="btn" id="btn-quiz">Responder</button>
+      </div>
+    </section>
+
+    <!-- TELA 4: RESULTADO -->
+    <section id="tela-resultado" class="tela">
+      <div class="caixa caixa-larga resultado">
+        <h2 id="resultado-titulo">Seu resultado</h2>
+        <div id="resultado-conteudo"></div>
+      </div>
+    </section>
+
+    <!-- TELA 5: TRILHA -->
+    <section id="tela-trilha" class="tela">
+      <div class="caixa caixa-larga">
+        <h2>Sua trilha de estudos</h2>
+        <div id="trilha-conteudo"></div>
+      </div>
+    </section>
+
+    <!-- TELA 6: CONTEÚDO -->
+    <section id="tela-conteudo" class="tela">
+      <div class="caixa caixa-larga">
+        <h2>Conteúdos de Matemática</h2>
+        <div id="abas" class="abas"></div>
+        <div id="conteudo-painel"></div>
+      </div>
+    </section>
+
+    <!-- FIM DO TREINO -->
+    <section id="tela-fim-treino" class="tela">
+      <div class="caixa caixa-larga" id="fim-treino-conteudo"></div>
+    </section>
+
+    <!-- TELA 7: EVOLUÇÃO -->
+    <section id="tela-evolucao" class="tela">
+      <div class="caixa caixa-larga">
+        <h2>Minha evolução</h2>
+        <div id="evolucao-conteudo"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">Educa+ · Projeto educacional · Matemática do Ensino Médio</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
